@@ -142,8 +142,12 @@
     _curImageName = nil;
 
     self.viewController.view.userInteractionEnabled = YES;  // re-enable user interaction upon completion
-    [self.viewController.view removeObserver:self forKeyPath:@"frame"];
-    [self.viewController.view removeObserver:self forKeyPath:@"bounds"];
+    @try {
+        [self.viewController.view removeObserver:self forKeyPath:@"frame"];
+    } @catch (NSException *e) {}
+    @try {
+        [self.viewController.view removeObserver:self forKeyPath:@"bounds"];
+    } @catch (NSException *e) {}
 }
 
 - (CDV_iOSDevice) getCurrentDevice
